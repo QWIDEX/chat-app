@@ -4,7 +4,7 @@ import SubmitBtn from "../ui/SubmitBtn";
 import eyeClosed from "../icons/eye-off-svgrepo-com.svg";
 import eyeOpen from "../icons/eye-show-svgrepo-com.svg";
 import { useNavigate } from "react-router";
-import { register } from "../helpers/authHelpers";
+import { register } from "../db/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
 

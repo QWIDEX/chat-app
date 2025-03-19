@@ -13,11 +13,8 @@ async function login(email, password) {
 
   const result = await resp.json();
 
-  if (resp.status === 401) {
-    throw result;
-  } else if (!resp.ok) {
-    console.log(result);
-    throw { message: "Something went wrong" };
+  if (!resp.ok) {
+    throw { status: resp.status, message: result.message };
   }
 
   return result;
@@ -31,11 +28,8 @@ async function refreshAccessToken() {
 
   const result = await resp.json();
 
-  if (resp.status === 401) {
-    throw result;
-  } else if (!resp.ok) {
-    console.log(result);
-    throw { message: "Something went wrong" };
+  if (!resp.ok) {
+    throw { status: resp.status, message: result.message };
   }
 
   return result;
@@ -57,14 +51,27 @@ async function register(username, email, password) {
 
   const result = await resp.json();
 
-  if (resp.status === 409) {
-    throw result;
-  } else if (!resp.ok) {
-    console.log(result);
-    throw { message: "Something went wrong" };
+  if (!resp.ok) {
+    throw { status: resp.status, message: result.message };
   }
 
   return result;
 }
 
-export { login, refreshAccessToken, register };
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+export { login, refreshAccessToken, register, parseJwt };

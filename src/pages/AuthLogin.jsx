@@ -4,7 +4,7 @@ import SubmitBtn from "../ui/SubmitBtn";
 import eyeClosed from "../icons/eye-off-svgrepo-com.svg";
 import eyeOpen from "../icons/eye-show-svgrepo-com.svg";
 import { useNavigate } from "react-router";
-import { login } from "../helpers/authHelpers";
+import { login } from "../db/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
 
@@ -30,14 +30,15 @@ const AuthLogin = () => {
       return;
     }
 
-    const resp = await login(email, password).catch((err) => {
-      setValidationError(err.message);
-      return;
-    });
+    try {
+      const resp = await login(email, password);
 
-    dispatch(setUser(resp));
-    setValidationError("");
-    navigate("/")
+      dispatch(setUser(resp));
+      setValidationError("");
+      navigate("/");
+    } catch (err) {
+      setValidationError(err.message);
+    }
   };
 
   return (
