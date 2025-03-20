@@ -7,7 +7,7 @@ const Sidebar = () => {
   const [selectedList, setSelectedList] = useState("chats");
 
   return (
-    <div className="sm:w-[20%] w-0 max-w-96 sm:min-w-52 bg-[#1D2D44] h-[100dvh] flex flex-col overflow-hidden">
+    <div className="sm:w-[20%] shadow-lg shadow-black relative w-0 max-w-96 sm:min-w-52 bg-[#1D2D44] h-[100dvh] flex flex-col overflow-hidden">
       <div className="bg-[#3E5C76] ">
         <UserDisplay />
         <div className="h-10 w-full flex justify-around items-end">

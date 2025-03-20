@@ -13,7 +13,7 @@ const ChatCard = ({ chatName = "", lastMessage = "", chatId = "" }) => {
         chatId === param ? "bg-[#3E5C76]!" : ""
       }`}
     >
-      <h6>{chatName}</h6>
+      <h6 className="block overflow-hidden text-ellipsis w-[100%]">{chatName}</h6>
       <div className="text-xs opacity-80 block overflow-hidden text-ellipsis w-[calc(100% - 24px)]">
         {lastMessage === "" ? "Chat is empty" : lastMessage}
       </div>

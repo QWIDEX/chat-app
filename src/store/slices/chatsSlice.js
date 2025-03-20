@@ -14,8 +14,18 @@ const chatsSlice = createSlice({
     addChat: (state, action) => {
       state.Chats.unshift(action.payload);
     },
+    sendMessage: (state, action) => {
+      const chatIdx = state.Chats.findIndex((chat) => chat.chatId === action.payload.dest)
+
+      state.Chats[chatIdx].chat?.unshift(action.payload)
+    },
+    receiveMessage: (state, action) => {
+      const chatIdx = state.Chats.findIndex((chat) => chat.chatId === action.payload.dest)
+
+      state.Chats[chatIdx]?.unshift(action.payload.message)
+    },
   },
 });
 
-export const { setChats, addChats } = chatsSlice.actions;
+export const { setChats, addChats, receiveMessage, sendMessage } = chatsSlice.actions;
 export default chatsSlice.reducer;
