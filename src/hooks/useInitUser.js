@@ -3,8 +3,6 @@ import { parseJwt, refreshAccessToken } from "../db/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
 
-
-
 const useInitUser = () => {
   const dispatch = useDispatch();
 

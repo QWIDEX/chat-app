@@ -3,12 +3,12 @@ import React from "react";
 const Message = ({ sentAt = "", sender = "", message = "", username = "" }) => {
   const sentDate = new Date(sentAt);
 
-  const timeString = `${sentDate.getHours()}:${sentDate.getMinutes()}`;
+  const timeString = `${sentDate.getHours()}:${sentDate.getMinutes() < 10 ? "0" + sentDate.getMinutes() : sentDate.getMinutes()}`;
 
   return (
     <div
       className={`max-w-full sm:max-w-[80%] w-fit rounded-xl px-3 pr-12 py-1 relative bg-[#3e5c76] ${
-        username === sender ? "self-end" : ""
+        username === sender ? "justify-self-end" : ""
       }`}
     >
       {username === sender ? (

@@ -1,7 +1,7 @@
 import { setUser } from "../store/slices/userSlice";
 import { parseJwt, refreshAccessToken } from "../db/auth";
 
-const updateRefreshToken = (dispatch) => {
+const updateAccessToken = (dispatch) => {
     refreshAccessToken()
     .then((resp) => {
       const token = resp.accessToken;
@@ -22,4 +22,4 @@ const updateRefreshToken = (dispatch) => {
     .catch(() => {});
 }
 
-export default updateRefreshToken
+export default updateAccessToken

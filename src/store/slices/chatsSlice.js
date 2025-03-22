@@ -15,17 +15,39 @@ const chatsSlice = createSlice({
       state.Chats.unshift(action.payload);
     },
     sendMessage: (state, action) => {
-      const chatIdx = state.Chats.findIndex((chat) => chat.chatId === action.payload.dest)
+      const chatIdx = state.Chats.findIndex(
+        (chat) => chat.chatId === action.payload.dest
+      );
 
-      state.Chats[chatIdx].chat?.unshift(action.payload)
+      const updatedChat = state.Chats[chatIdx];
+      updatedChat.chat?.unshift(action.payload);
+
+      state.Chats = [
+        updatedChat,
+        ...state.Chats.slice(0, chatIdx),
+        ...state.Chats.slice(chatIdx + 1),
+      ];
     },
     receiveMessage: (state, action) => {
-      const chatIdx = state.Chats.findIndex((chat) => chat.chatId === action.payload.dest)
+      const chatIdx = state.Chats.findIndex(
+        (chat) => chat.chatId === action.payload.dest
+      );
 
-      state.Chats[chatIdx]?.unshift(action.payload.message)
+      const updatedChat = state.Chats[chatIdx];
+      updatedChat.chat?.unshift(action.payload);
+
+      state.Chats = [
+        updatedChat,
+        ...state.Chats.slice(0, chatIdx),
+        ...state.Chats.slice(chatIdx + 1),
+      ];
+    },
+    loadMessages: (state, action) => {
+      state.Chats[action.payload.chatIdx].chat.push(...action.payload.messages);
     },
   },
 });
 
-export const { setChats, addChats, receiveMessage, sendMessage } = chatsSlice.actions;
+export const { setChats, addChats, receiveMessage, sendMessage, loadMessages } =
+  chatsSlice.actions;
 export default chatsSlice.reducer;
