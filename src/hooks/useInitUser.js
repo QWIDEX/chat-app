@@ -18,8 +18,8 @@ const useInitUser = () => {
           user: {
             username: jwtData.username,
             email: jwtData.email,
-            uid: jwtData.uid
-          }
+            uid: jwtData.uid,
+          },
         };
 
         dispatch(setUser(userData));
@@ -28,4 +28,4 @@ const useInitUser = () => {
   }, [dispatch]);
 };
 
-export default useInitUser
+export default useInitUser;

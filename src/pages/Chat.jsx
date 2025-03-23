@@ -40,7 +40,6 @@ const Chat = () => {
       const prevHeight = messageList.scrollHeight;
       return () => {
         const newHeight = messageList.scrollHeight;
-        console.log(newHeight, prevHeight);
         messageList.scrollTop += newHeight - prevHeight;
       };
     }

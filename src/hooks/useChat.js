@@ -31,7 +31,7 @@ const useChat = (accessToken, from, length) => {
           setLoading(false);
         });
     }
-  }, [chatId, accessToken, from, length, dispatch, loading]);
+  }, [chatId, from, length, dispatch, loading]);
 
   return { chat };
 };

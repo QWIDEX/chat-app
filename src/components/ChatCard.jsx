@@ -1,14 +1,12 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 
-const ChatCard = ({ chatName = "", lastMessage = "", chatId = "" }) => {
+const ChatCard = ({ chatName = "", lastMessage = "", chatId = "", onClick = () => {} }) => {
   const param = useParams().chatId;
-
-  const navigate = useNavigate();
 
   return (
     <button
-      onClick={() => navigate(`chats/${chatId}`)}
+      onClick={onClick}
       className={`bg-transparent text-start cursor-pointer flex items-start flex-col p-3 h-16 hover:bg-[#3E5C76] transition-all ${
         chatId === param ? "bg-[#3E5C76]!" : ""
       }`}

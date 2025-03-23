@@ -35,7 +35,7 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-      <div className="relative mt-1">{selectedList == "chats" ? <ChatList /> : <UsersList />}</div>
+      <div className="relative mt-1 h-[calc(100%-96px)]">{selectedList == "chats" ? <ChatList /> : <UsersList />}</div>
     </div>
   );
 };
