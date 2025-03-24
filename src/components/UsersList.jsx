@@ -175,7 +175,7 @@ const UsersList = () => {
           uid={user.uid}
           email={user.email}
           key={user.uid}
-          createChat={createOrAddToChat}
+          btnOnClick={createOrAddToChat}
         />
       ))}
     </div>

@@ -17,10 +17,8 @@ const useChat = (accessToken, from, length) => {
 
   useEffect(() => {
     if (!loading && from !== 0 && from === chat?.chat?.length) {
-      console.log(chat);
       getChat(accessToken, chatId, from, length)
         .then((resp) => {
-          console.log(resp);
           dispatch(loadMessages({ chatIdx, messages: resp }));
           setLoading(false);
         })
