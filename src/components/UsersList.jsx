@@ -8,9 +8,11 @@ import { addChatroomMember, createChatroom } from "../db/chat";
 import { updateAccessTokenAndCall } from "../helpers/updateAccessToken";
 import { addChat, addChatMember } from "../store/slices/chatsSlice";
 import ChatCard from "./ChatCard";
+import toast from "react-hot-toast";
+import UserCardSkeleton from "./UserCardSkeleton";
 
 const UsersList = () => {
-  const { users } = useUsers();
+  const { users, loading } = useUsers();
   const user = useSelector((state) => state.userSlice.User);
   const [action, setAction] = useState(null);
   const prevAction = useRef("");
@@ -64,6 +66,7 @@ const UsersList = () => {
             }
           );
         }
+        toast.error("something went wrong");
       });
   };
 
@@ -102,8 +105,23 @@ const UsersList = () => {
             }
           );
         }
+        toast.error("something went wrong");
       });
   };
+
+  if (!user?.authentificated) {
+    return <></>;
+  }
+
+  if (loading) {
+    return (
+      <div className="grid max-h-[100%] overflow-auto gap-3 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full[&::-webkit-scrollbar-track]:bg-[#2e343c] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#565b60]">
+        {Array.from({ length: 10 }, () => {}).map((_, idx) => (
+          <UserCardSkeleton key={idx}/>
+        ))}
+      </div>
+    );
+  }
 
   if (action) {
     return (
@@ -152,7 +170,7 @@ const UsersList = () => {
           </form>
         ) : (
           <div className="w-[100%] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full[&::-webkit-scrollbar-track]:bg-[#2e343c] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#565b60] grid max-h-[100%] overflow-auto">
-            {chats.map((chat) => (
+            {chats?.map((chat) => (
               <ChatCard
                 onClick={() => addToChat(chat.chatId)}
                 lastMessage={chat.chat[0]?.message}

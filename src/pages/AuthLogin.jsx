@@ -33,7 +33,7 @@ const AuthLogin = () => {
     try {
       const resp = await login(email, password);
 
-      dispatch(setUser(resp));
+      dispatch(setUser({...resp, authentificated: true}));
       setValidationError("");
       navigate("/");
     } catch (err) {

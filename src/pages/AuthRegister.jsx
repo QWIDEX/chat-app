@@ -48,7 +48,7 @@ const AuthRegister = () => {
     try {
       const resp = await register(username, email, password);
 
-      dispatch(setUser(resp));
+      dispatch(setUser({...resp, authentificated: true}));
       setValidationError("");
       navigate("/");
     } catch (err) {
@@ -123,14 +123,14 @@ const AuthRegister = () => {
           <></>
         )}
         <span>
-          Haven't registered yet?{" "}
+          Already registered? {" "}
           <button
             type="button"
-            onClick={() => navigate("/auth/register")}
+            onClick={() => navigate("/auth/login")}
             className="text-[#748CAB] cursor-pointer hover:text-[#eeedea] transition-all "
             tabIndex={6}
           >
-            Register
+            Login
           </button>
         </span>
         <SubmitBtn tabIndex={7}>Register</SubmitBtn>

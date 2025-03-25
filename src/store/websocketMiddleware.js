@@ -9,6 +9,9 @@ const createWebSocketMiddleware = (url) => {
     switch (action.type) {
       case "user/setUser": {
         if (!socket) {
+          if (!action.payload.authentificated) {
+            break
+          }
           socket = new WebSocket(url);
 
           socket.onopen = () => {

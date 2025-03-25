@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import { parseJwt, refreshAccessToken } from "../db/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/slices/userSlice";
+import { useHref, useNavigate } from "react-router";
 
 const useInitUser = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const path = useHref()
 
   useEffect(() => {
     refreshAccessToken()
@@ -14,6 +17,7 @@ const useInitUser = () => {
         const jwtData = parseJwt(token);
 
         const userData = {
+          authentificated: true,
           accessToken: token,
           user: {
             username: jwtData.username,
@@ -24,7 +28,11 @@ const useInitUser = () => {
 
         dispatch(setUser(userData));
       })
-      .catch(() => {});
+      .catch(() => {
+        dispatch(setUser({ authentificated: false }));
+        if (path !== "/auth/login" && path !== "/auth/register")
+        navigate("/auth/login")
+      });
   }, [dispatch]);
 };
 

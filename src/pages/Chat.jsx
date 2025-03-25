@@ -12,6 +12,7 @@ import useUsers from "../hooks/useUsers";
 import UserCard from "../components/UserCard";
 import { addChatroomMember } from "../db/chat";
 import { updateAccessTokenAndCall } from "../helpers/updateAccessToken";
+import UserCardSkeleton from "../components/UserCardSkeleton";
 
 const Chat = () => {
   const user = useSelector((state) => state.userSlice.User);
@@ -146,14 +147,18 @@ const Chat = () => {
             {sidebar === "show members" ? (
               <>
                 <h3 className="text-center text-xl my-2">Members</h3>
-                {members?.map((user) => (
-                  <UserCard
-                    username={user.username}
-                    uid={user.uid}
-                    email={user.email}
-                    key={user.uid}
-                  />
-                ))}
+                {members.length === 0
+                  ? Array.from({ length: 3 }, () => {}).map((_, idx) => (
+                      <UserCardSkeleton key={idx} />
+                    ))
+                  : members?.map((user) => (
+                      <UserCard
+                        username={user.username}
+                        uid={user.uid}
+                        email={user.email}
+                        key={user.uid}
+                      />
+                    ))}
                 <button
                   onClick={() => setSidebar("add member")}
                   type="button"

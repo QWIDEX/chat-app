@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getChat } from "../db/chat";
@@ -9,8 +9,11 @@ const useChat = (accessToken, from, length) => {
   const chatId = useParams().chatId;
   const chats = useSelector((state) => state.chatsSlice.Chats);
 
-  const chatIdx = chats?.findIndex((val) => val.chatId === chatId);
-  const chat = chats[chatIdx];
+  const { chat, chatIdx } = useMemo(() => {
+    const chatIdx = chats?.findIndex((val) => val.chatId === chatId);
+    const chat = chatIdx !== undefined ? chats[chatIdx] : {};
+    return { chat, chatIdx };
+  }, [chats, chatId]);
 
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
