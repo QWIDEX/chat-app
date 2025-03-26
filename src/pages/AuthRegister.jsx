@@ -52,7 +52,9 @@ const AuthRegister = () => {
       setValidationError("");
       navigate("/");
     } catch (err) {
-      setValidationError(err.message);
+      if (err.name === "ApiError") {
+        setValidationError(err.message);
+      }
     }
   };
 

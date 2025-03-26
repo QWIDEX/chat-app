@@ -1,8 +1,6 @@
 import React from "react";
 import ChatCard from "./ChatCard";
 import useChats from "../hooks/useChats";
-import LoadingIndicator from "./LoadingIndicator";
-import ErrorIndicator from "./ErrorIndicator";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import ChatCardSkeleton from "./ChatCardSkeleton";

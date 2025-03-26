@@ -34,7 +34,7 @@ const useChat = (accessToken, from, length) => {
     }
   }, [chatId, from, length, dispatch, loading]);
 
-  return { chat };
+  return { chat, loading };
 };
 
 export default useChat;

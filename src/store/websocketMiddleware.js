@@ -1,5 +1,6 @@
 // import { receiveMessage } from "./slices/chatsSlice";
 
+import toast from "react-hot-toast";
 import { receiveMessage } from "./slices/chatsSlice";
 
 const createWebSocketMiddleware = (url) => {
@@ -10,7 +11,7 @@ const createWebSocketMiddleware = (url) => {
       case "user/setUser": {
         if (!socket) {
           if (!action.payload.authentificated) {
-            break
+            break;
           }
           socket = new WebSocket(url);
 
@@ -20,9 +21,12 @@ const createWebSocketMiddleware = (url) => {
             );
           };
 
+          socket.onclose = () => {
+            toast.error("Connection lost", { duration: Infinity });
+          };
+
           socket.onmessage = (e) => {
             const msg = JSON.parse(e.data);
-            console.log(JSON.parse(e.data));
             if (msg.sender !== "server") {
               storeAPI.dispatch(receiveMessage(JSON.parse(e.data)));
             }
@@ -31,7 +35,6 @@ const createWebSocketMiddleware = (url) => {
         break;
       }
       case "chats/sendMessage": {
-        console.log(action.payload);
         socket.send(JSON.stringify(action.payload));
         break;
       }

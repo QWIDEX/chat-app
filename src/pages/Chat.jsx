@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Message from "../components/Message";
-import LoadingIndicator from "../components/LoadingIndicator";
 import TextInput from "../ui/TextInput";
 import sendMsgIcon from "../icons/send-message-dm-svgrepo-com.svg";
 import { addChatMember, sendMessage } from "../store/slices/chatsSlice";
@@ -124,9 +123,7 @@ const Chat = () => {
   return (
     <>
       {loading ? (
-        <div className="h-full w-full flex items-center justify-center">
-          <LoadingIndicator />
-        </div>
+        <></>
       ) : (
         <div className="w-full relative flex flex-col flex-grow min-h-0 overflow-hidden ">
           <div className="bg-[#3e5c76] flex justify-between h-14 items-center px-5 w-full py-4">

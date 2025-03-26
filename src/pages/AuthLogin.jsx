@@ -33,11 +33,13 @@ const AuthLogin = () => {
     try {
       const resp = await login(email, password);
 
-      dispatch(setUser({...resp, authentificated: true}));
+      dispatch(setUser({ ...resp, authentificated: true }));
       setValidationError("");
       navigate("/");
     } catch (err) {
-      setValidationError(err.message);
+      if (err.name === "ApiError") {
+        setValidationError(err.message);
+      }
     }
   };
 

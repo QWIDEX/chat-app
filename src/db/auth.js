@@ -1,5 +1,7 @@
+const baseUrl = import.meta.env.VITE_API_BASE_URL
+
 async function login(email, password) {
-  const resp = await fetch("http://localhost:8080/auth/login", {
+  const resp = await fetch(baseUrl + "/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,14 +16,14 @@ async function login(email, password) {
   const result = await resp.json();
 
   if (!resp.ok) {
-    throw { status: resp.status, message: result.message };
+    throw { status: resp.status, name: "ApiError", message: result.message };
   }
 
   return result;
 }
 
 async function refreshAccessToken() {
-  const resp = await fetch("http://localhost:8080/auth/refresh-token", {
+  const resp = await fetch(baseUrl + "/auth/refresh-token", {
     method: "GET",
     credentials: "include",
   });
@@ -29,14 +31,14 @@ async function refreshAccessToken() {
   const result = await resp.json();
 
   if (!resp.ok) {
-    throw { status: resp.status, message: result.message };
+    throw { status: resp.status, name: "ApiError", message: result.message };
   }
 
   return result;
 }
 
 async function register(username, email, password) {
-  const resp = await fetch("http://localhost:8080/auth/register", {
+  const resp = await fetch(baseUrl + "/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +54,7 @@ async function register(username, email, password) {
   const result = await resp.json();
 
   if (!resp.ok) {
-    throw { status: resp.status, message: result.message };
+    throw { status: resp.status, name: "ApiError", message: result.message };
   }
 
   return result;
